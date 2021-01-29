@@ -26,6 +26,31 @@ Python RecFilter2.py file \
 | -s        | Site name to match in the config file, (Default is none). |
 | -k        | Keep the temporary work directory and its contents, (Default is false). |
 
+The search for body areas defaults to: 'EXPOSED_BREAST', 'EXPOSED_BUTTOCKS', 'EXPOSED_ANUS', 'EXPOSED_GENITALIA', 'EXPOSED_BELLY'
+If you want something else then either:
+ - edit the source;
+ - create an entry in the config for particular models.
+
+Examples:
+
+`python RecFilter2.py d:\captures\cb_freddo_20210202-181818.mp4`
+
+Uses the default values: -i 60 -e 0 -b 0 -f 0
+
+`python RecFilter2.py d:\captures\cb_freddo_20210202-181818.mp4 -i 45`
+
+Sample image interval is 45 seconds, default values for everything else.
+
+`python RecFilter2.py d:\captures\cb_freddo_20210202-181818.mp4 -b 420 -e 300`
+
+Skip 420 seconds of video at the start and 300 seconds at the end, default values for everything else.
+
+`python RecFilter2.py d:\captures\cb_freddo_20210202-181818.mp4 -m sexy_legs -s supacams`
+
+Look for an entry in the config file for model `sexy_legs` on the site `supacams`, the values from the config file will override any given on the command line.
+
+
+
 ## Config file
 
 The configuration file is in JSON format and contains optional parameters pertaining to particular models.
