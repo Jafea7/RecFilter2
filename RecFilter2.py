@@ -1,4 +1,3 @@
-# All the hard coding done by Demo, all the easy coding done by Jafea7 ;)
 import argparse
 import json
 import os
