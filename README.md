@@ -54,6 +54,7 @@ Example:
 | begin     | Number of seconds to skip at the beginning of the video, eg. in the event of a 'highlights' video being shown. |
 | finish    | Number of seconds to skip at the end of the video, eg. in the event of a 'highlights' video being shown. |
 
+
 The valid body areas to detect on are:
 | class name          | Description |
 |---------------------|-------------|
