@@ -18,13 +18,13 @@ Python RecFilter2.py file \
 ```
 | Parameter | Description |
 |-----------|-------------|
-| -i        | Interval in seconds between each generated sample image used for analysis, default is 60. |
-| -e        | Number of seconds to include prior to each selected video section, default is 0. |
-| -b        | Number of seconds to skip at the beginning of the video, eg. in the event of a 'highlights' video being shown, default is 0. |
-| -f        | Number of seconds to skip at the end of the video, eg. in the event of a 'highlights' video being shown, default is 0. |
-| -m        | Model name to match in the config file, site (-s) parameter must also be supplied, default is none. |
-| -s        | Site name to match in the config file, default is none. |
-| -k        | Keep the temporary work directory and its contents, default is false. |
+| -i        | Interval in seconds between each generated sample image used for analysis, (Default is 60). |
+| -e        | Number of seconds to include prior to each selected video section, (Default is 0). |
+| -b        | Number of seconds to skip at the beginning of the video, eg. in the event of a 'highlights' video being shown, (Default is 0). |
+| -f        | Number of seconds to skip at the end of the video, eg. in the event of a 'highlights' video being shown, (Default is 0). |
+| -m        | Model name to match in the config file, site (-s) parameter must also be supplied, (Default is none). |
+| -s        | Site name to match in the config file, (Default is none). |
+| -k        | Keep the temporary work directory and its contents, (Default is false). |
 
 ## Config file
 
@@ -38,9 +38,19 @@ Example:
     "site": "camsite",
     "interval": 45,
     "extension": 10,
-    "search": "EXPOSED_BREAST,EXPOSED_GENTALIA,EXPOSED_BUTTOCKS,EXPOSED_BELLY",
+    "search": "EXPOSED_BELLY",
     "begin": 330,
     "finish": 0
   }
 ]
 ```
+| Parameter | Description |
+|-----------|-------------|
+| name      | Name of the model. |
+| site      | Name of the cam site. |
+| interval  | Interval in seconds between each generated sample image used for analysis. |
+| extension | Number of seconds to include prior to each selected video section. |
+| search    | Body areas to analyse images for, covered or exposed. (More info below.) |
+| begin     | Number of seconds to skip at the beginning of the video, eg. in the event of a 'highlights' video being shown. |
+| finish    | Number of seconds to skip at the end of the video, eg. in the event of a 'highlights' video being shown. |
+
