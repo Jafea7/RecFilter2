@@ -26,12 +26,6 @@ Python RecFilter2.py file \
 | -s        | Site name to match in the config file, (Default is none). |
 | -k        | Keep the temporary work directory and its contents, (Default is false). |
 
-The search for body areas defaults to: 'EXPOSED_BREAST', 'EXPOSED_BUTTOCKS', 'EXPOSED_ANUS', 'EXPOSED_GENITALIA', 'EXPOSED_BELLY'
-
-If you want something else then either:
- - edit the source;
- - create an entry in the config for particular models.
-
 Examples:
 
 `python RecFilter2.py d:\captures\cb_freddo_20210202-181818.mp4`
@@ -113,3 +107,18 @@ The following are gender neutral, ie. they will match Male or Female:
 | FACE              | Face; Any gender |
 | EXPOSED_BREAST    | Exposed Breast; Any gender |
 | EXPOSED_GENITALIA | Exposed Genitalia; Any gender |
+
+The body areas searched for are set in the script and default to: 'EXPOSED_BREAST', 'EXPOSED_BUTTOCKS', 'EXPOSED_ANUS', 'EXPOSED_GENITALIA', 'EXPOSED_BELLY'
+
+If you want something else then either:
+ - edit the source;
+ - create an entry in the config for particular models; or
+ - create the following entry in the configuration file.
+
+Example default search entry:
+```
+  {
+    "default": "EXPOSED_ANUS,EXPOSED_BELLY,EXPOSED_BREAST,EXPOSED_BUTTOCKS,EXPOSED_GENTALIA,EXPOSED_FEET,FACE"
+  },
+```
+
