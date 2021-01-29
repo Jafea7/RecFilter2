@@ -57,7 +57,9 @@ Look for an entry in the config file for model `sexy_legs` on the site `supacams
 The configuration file is in JSON format and contains optional parameters pertaining to particular models.
 
 The configuration file has to have the same basename as the script/executable, ie. RecFilter2.json for RecFilter2.py.
+
 If you change the name of the script/executable then the configuration has to be changed also.
+
 **The script/executable looks for the configuration file in the same directory as itself.**
 
 Example:
