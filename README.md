@@ -25,3 +25,22 @@ Python RecFilter2.py file \
 | -m        | Model name to match in the config file, site (-s) parameter must also be supplied, default is none. |
 | -s        | Site name to match in the config file, default is none. |
 | -k        | Keep the temporary work directory and its contents, default is false. |
+
+## Config file
+
+The configuration file is in JSON format and contains optional parameters pertaining to particular models.
+
+Example:
+```
+[
+  {
+    "name": "modelname",
+    "site": "camsite",
+    "interval": 45,
+    "extension": 10,
+    "search": "EXPOSED_BREAST,EXPOSED_GENTALIA,EXPOSED_BUTTOCKS,EXPOSED_BELLY",
+    "begin": 330,
+    "finish": 0
+  }
+]
+```
