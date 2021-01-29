@@ -27,6 +27,7 @@ Python RecFilter2.py file \
 | -k        | Keep the temporary work directory and its contents, (Default is false). |
 
 The search for body areas defaults to: 'EXPOSED_BREAST', 'EXPOSED_BUTTOCKS', 'EXPOSED_ANUS', 'EXPOSED_GENITALIA', 'EXPOSED_BELLY'
+
 If you want something else then either:
  - edit the source;
  - create an entry in the config for particular models.
