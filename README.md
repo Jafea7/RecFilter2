@@ -15,7 +15,7 @@ Python RecFilter2.py file \
        [-m <NAME>] \
        [-s <NAME>] \
        [-k]
-
+```
 | Parameter | Description |
 |-----------|-------------|
 | -i        | Interval in seconds between each generated sample image used for analysis, default is 60. |
