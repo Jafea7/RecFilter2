@@ -4,34 +4,44 @@
     "site": "Chaturbate",
     "interval": 45,
     "extension": 10,
-    "search": "EXPOSED_BREAST,EXPOSED_GENTALIA,EXPOSED_BUTTOCKS,EXPOSED_BELLY"
+    "search": "EXPOSED_BREAST,EXPOSED_GENTALIA,EXPOSED_BUTTOCKS,EXPOSED_BELLY",
+    "begin": 330,
+    "finish": 0
   },
   {
     "name": "lucieoude",
     "site": "MyFreeCams",
     "interval": 45,
     "extension": 10,
-    "search": "EXPOSED_BREAST,EXPOSED_GENTALIA,EXPOSED_BUTTOCKS,EXPOSED_BELLY"
+    "search": "EXPOSED_BREAST,EXPOSED_GENTALIA,EXPOSED_BUTTOCKS,EXPOSED_BELLY",
+    "begin": 330,
+    "finish": 0
   },
   {
     "name": "kepler_186f",
     "site": "Chaturbate",
     "interval": 90,
     "extension": 15,
-    "search": "EXPOSED_BREAST,EXPOSED_GENTALIA,EXPOSED_BUTTOCKS,EXPOSED_BELLY"
+    "search": "EXPOSED_BREAST,EXPOSED_GENTALIA,EXPOSED_BUTTOCKS,EXPOSED_BELLY",
+    "begin": 0,
+    "finish": 0
   },
   {
-    "name": "ana_lingus",
+    "name": "ana__lingus",
     "site": "Chaturbate",
     "interval": 45,
     "extension": 15,
-    "search": "EXPOSED_BUTTOCKS"
+    "search": "EXPOSED_BUTTOCKS",
+    "begin": 420,
+    "finish": 420
   },
   {
     "name": "cutie_and_sexy",
     "site": "Chaturbate",
     "interval": 90,
     "extension": 0,
-    "search": "EXPOSED_BREAST,EXPOSED_GENTALIA,EXPOSED_BUTTOCKS"
+    "search": "EXPOSED_BREAST,EXPOSED_GENTALIA,EXPOSED_BUTTOCKS",
+    "begin": 0,
+    "finish": 0
   }
 ]

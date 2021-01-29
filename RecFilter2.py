@@ -24,6 +24,8 @@ parser = argparse.ArgumentParser(prog='RecFilter', description='RecFilter: Remov
 parser.add_argument('file', type=str, help='Video file to process')
 parser.add_argument('-i', '--interval', type=int, default=60, help='Interval between image samples (default: 60)')
 parser.add_argument('-e', '--extension', type=int, default=0, help='Extend time prior to section start (default: 0)')
+parser.add_argument('-b', '--beginning', type=int, default=1, help='Skip x seconds of beginning (default: 1)')
+parser.add_argument('-f', '--finish', type=int, default=0, help='Skip x seconds of finish (default: 0)')
 parser.add_argument('-m', '--model', type=str, help='Model name for config preset')
 parser.add_argument('-s', '--site', type=str, help='Site that the model appears on')
 parser.add_argument('-k', '--keep', action='store_true', help='Keep temporary working files (default: False)')
@@ -38,12 +40,14 @@ if ((((args.model is not None) and
 video_name = args.file
 frame_duration = args.interval
 frame_extension = args.extension
+skip_begin = args.beginning
+skip_finish = args.finish
 model = args.model
 site = args.site
 keep = args.keep
 
 # Default checkinglist is gender neutral, if a particular gender is required it can be entered into the config file per model
-# EXPOSED_BREAST_F EXPOSED_GENITALIA_F EXPOSED_BREAST_M EXPOSED_GENITALIA_M 
+# EXPOSED_BREAST_F COVERED_BREAST_F EXPOSED_GENITALIA_F FACE_F EXPOSED_BREAST_M COVERED_BREAST_M EXPOSED_GENITALIA_M FACE_M
 checkinglist = ['EXPOSED_BREAST', 'EXPOSED_BUTTOCKS', 'EXPOSED_ANUS', 'EXPOSED_GENITALIA', 'EXPOSED_BELLY']
 
 if ((model is not None) and (site is not None)):
@@ -58,6 +62,8 @@ if ((model is not None) and (site is not None)):
             frame_duration = cammodel['interval']
             frame_extension = cammodel['extension']
             checkinglist = cammodel['search'].split(',')
+            skip_begin = cammodel['begin']
+            skip_finish = cammodel['finish']
             found = True
             break
       if not found:
@@ -88,10 +94,10 @@ except OSError:
   sys.exit('Creation of the temporary directory failed')
 
 os.system('ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 -i ' + video_path + ' > tmp')
-duration = int(float(open('tmp', 'r').read().strip()))
+duration = int(float(open('tmp', 'r').read().strip())) - skip_finish
 
 print('Creating sample images')
-for interval in range(1, duration, frame_duration):
+for interval in range(skip_begin, duration, frame_duration):
   os.system('ffmpeg -v quiet -y -skip_frame nokey -ss ' + str(interval) + ' -i ' + video_path + ' -vf select="eq(pict_type\\,I),scale=800:-1" -vframes 1 image-' + str(interval).zfill(7) + '.jpg')
 
 print('Analysing images')
