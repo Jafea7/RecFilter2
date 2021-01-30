@@ -30,6 +30,7 @@ parser.add_argument('-f', '--finish', type=int, default=0, help='Skip x seconds 
 parser.add_argument('-m', '--model', type=str, help='Model name for config preset')
 parser.add_argument('-s', '--site', type=str, help='Site that the model appears on')
 parser.add_argument('-k', '--keep', action='store_true', help='Keep temporary working files (default: False)')
+parser.add_argument('-v', '--verbose', action='store_true', help='Output working information (default: False)')
 
 args = parser.parse_args()
 if ((((args.model is not None) and 
@@ -46,6 +47,7 @@ skip_finish = args.finish
 model = args.model
 site = args.site
 keep = args.keep
+verbose = args.verbose
 
 config_path = os.path.abspath(sys.argv[0]).rsplit('.', 1)[0] + '.json'
 try:
@@ -53,7 +55,7 @@ try:
     data = json.load(f)
     config = True
 except:
-  print('No config file \'%s\' found.' % config_path)
+  print('INFO: No config file \'%s\' found.' % config_path)
   config = False
 
 # Default checkinglist is gender neutral, if a particular gender is required it can be entered into the config file per model
@@ -79,8 +81,8 @@ if config:
     if not found:
       print('INFO: \'' + model + '\' at \'' + site + '\' not found, using defaults.')
 
-print('Settings: -i ' + str(frame_duration) + ' -e ' + str(frame_extension) + ' -b ' + str(skip_begin) + ' -f ' + str(skip_finish))
-print('          ' + str(checkinglist))
+print('INFO: -i ' + str(frame_duration) + ' -e ' + str(frame_extension) + ' -b ' + str(skip_begin) + ' -f ' + str(skip_finish))
+print('      ' + str(checkinglist))
 
 imagelist = []
 lines = []
@@ -106,33 +108,34 @@ except OSError:
 
 os.system('ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 -i ' + video_path + ' > tmp')
 duration = int(float(open('tmp', 'r').read().strip())) - skip_finish
+if verbose: print('Duration: ' + str(duration))
 
 print('INFO: Creating sample images')
 for interval in range(skip_begin, duration, frame_duration):
-  os.system('ffmpeg -v quiet -y -skip_frame nokey -ss ' + str(interval) + ' -i ' + video_path + ' -vf select="eq(pict_type\\,I),scale=800:-1" -vframes 1 image-' + str(interval).zfill(7) + '.jpg')
+  os.system('ffmpeg -v quiet -y -skip_frame nokey -ss ' + str(interval) + ' -i ' + video_path + ' -vf select="eq(pict_type\\,I),scale=800:-1" -an -q:v 3 -vframes 1 image-' + str(interval).zfill(7) + '.bmp')
+if skip_finish < 1:
+  os.system('ffmpeg -v quiet -y -skip_frame nokey -ss ' + str(duration - 1) + ' -i ' + video_path + ' -vf select="eq(pict_type\\,I),scale=800:-1" -an -q:v 3 -vframes 1 image-' + str(duration - 1).zfill(7) + '.bmp')
 
 print('INFO: Analysing images')
 with open('API-Results.txt',"w") as outfile:
   for filename in os.listdir(os.getcwd()):
-    if filename.endswith(".jpg"):
+    if filename.endswith(".bmp"):
       output  = detector.detect(filename)
       y = 0
       stringoutput = ''
   
       while y < len(output):
         match = re.search(r'\b[A-Z].*?\b', str(output[y]))
-        #print(match.group())
         stringoutput += str(match.group()) + '  '
     
         y +=1
       outfile.write(filename + '    ' + stringoutput + '\n')
-      #print(stringoutput)
+      if verbose: print(filename + ' - ' + stringoutput)
 
 with open('API-Results.txt',"r") as infile, open('output.txt',"w") as outfile:
   for line in infile:
     for check in checkinglist:
       if check in line:
-        #print(line) 
         outfile.write(line)
         break
 
@@ -143,7 +146,7 @@ with open('output.txt',"r") as infile, open('list.txt',"w") as outfile:
     x = int(match.group())
     imagelist.append(x)
     lines.append(line)
-  #print(imagelist)
+#    if verbose: print(imagelist)
   
   while i < len(imagelist):
     if i == 0: #if first element of imagelist
@@ -183,18 +186,18 @@ with open('output.txt',"r") as infile, open('list.txt',"w") as outfile:
         endings.append(e)
     i += 1
       
-  #print(beginnings)
-  #print(endings)
+  if verbose: print('Image list: ' + str(imagelist) + '\nBeginnings: ' + str(beginnings) + '\nEndings: ' + str(endings))
 
   print('INFO: Creating video segments')
   while p < len(beginnings):
     duration = endings[p] - beginnings[p]
     outfile.write('file ' + '\'out' + str(p) + '.mp4\'' + '\n')
-#    print('ffmpeg -v quiet -stats -vsync 0 -ss ' + str(beginnings[p]) + ' -i ' + video_path + ' -t ' + str(duration) + ' -c copy out' + str(p) + '.mp4')
+    if verbose: print('ffmpeg -v quiet -vsync 0 -ss ' + str(beginnings[p]) + ' -i ' + video_path + ' -t ' + str(duration) + ' -c copy out' + str(p) + '.mp4')
     os.system('ffmpeg -v quiet -vsync 0 -ss ' + str(beginnings[p]) + ' -i ' + video_path + ' -t ' + str(duration) + ' -c copy out' + str(p) + '.mp4')
     p += 1
 
 print('INFO: Creating final video')
+if verbose: print('ffmpeg -v quiet -y -vsync 0 -safe 0 -f concat -i list.txt -c copy "' + video_path.rsplit('.', 1)[0] + '-Compilation' + str(frame_duration) + '-' + str(frame_extension) + '.mp4"')
 os.system('ffmpeg -v quiet -y -vsync 0 -safe 0 -f concat -i list.txt -c copy "' + video_path.rsplit('.', 1)[0] + '-Compilation' + str(frame_duration) + '-' + str(frame_extension) + '.mp4"')
 
 popdir() # Return to temporary directory parent
@@ -203,4 +206,4 @@ if (not keep): # Delete the temporary directory if argv[4] = false
   shutil.rmtree(tmpdir, ignore_errors=True)
 
 popdir() # Return to initial directory
-print('--- Finished ---')
+print('--- Finished ---\n')
