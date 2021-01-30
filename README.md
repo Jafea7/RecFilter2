@@ -58,6 +58,8 @@ If you change the name of the script/executable then the configuration has to be
 
 Example:
 ```
+{
+  "default": "EXPOSED_ANUS,EXPOSED_BELLY,EXPOSED_BREAST,EXPOSED_BUTTOCKS,EXPOSED_GENTALIA,EXPOSED_FEET,FACE",
   "models": [  
     {
       "name": "modelname",
@@ -69,6 +71,7 @@ Example:
       "finish": 0
     }
   ]
+}
 ```
 | Parameter | Description |
 |-----------|-------------|
@@ -117,9 +120,8 @@ If you want something else then either:
 
 Example default search entry:
 ```
-  {
-    "default": "EXPOSED_ANUS,EXPOSED_BELLY,EXPOSED_BREAST,EXPOSED_BUTTOCKS,EXPOSED_GENTALIA,EXPOSED_FEET,FACE"
-  },
+{
+  "default": "EXPOSED_ANUS,EXPOSED_BELLY,EXPOSED_BREAST,EXPOSED_BUTTOCKS,EXPOSED_GENTALIA,EXPOSED_FEET,FACE",
 ```
 
 See the included example configuration file for more info.
