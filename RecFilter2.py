@@ -77,7 +77,7 @@ if config:
           found = True
           break
     if not found:
-      print(model + ' at ' + site + ' not found, using defaults.')
+      print('INFO: \'' + model + '\' at \'' + site + '\' not found, using defaults.')
 
 print('Settings: -i ' + str(frame_duration) + ' -e ' + str(frame_extension) + ' -b ' + str(skip_begin) + ' -f ' + str(skip_finish))
 print('          ' + str(checkinglist))
@@ -100,18 +100,18 @@ tmpdir = '~' + Path(video_name).stem
 try:
   os.mkdir(tmpdir)
   pushdir(tmpdir) # Change to temporary directory
-  print('Created temporary directory')
+  print('INFO: Created temporary directory')
 except OSError:
   sys.exit('Creation of the temporary directory failed')
 
 os.system('ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 -i ' + video_path + ' > tmp')
 duration = int(float(open('tmp', 'r').read().strip())) - skip_finish
 
-print('Creating sample images')
+print('INFO: Creating sample images')
 for interval in range(skip_begin, duration, frame_duration):
   os.system('ffmpeg -v quiet -y -skip_frame nokey -ss ' + str(interval) + ' -i ' + video_path + ' -vf select="eq(pict_type\\,I),scale=800:-1" -vframes 1 image-' + str(interval).zfill(7) + '.jpg')
 
-print('Analysing images')
+print('INFO: Analysing images')
 with open('API-Results.txt',"w") as outfile:
   for filename in os.listdir(os.getcwd()):
     if filename.endswith(".jpg"):
@@ -186,20 +186,20 @@ with open('output.txt',"r") as infile, open('list.txt',"w") as outfile:
   #print(beginnings)
   #print(endings)
 
-  print('Creating video segments')
+  print('INFO: Creating video segments')
   while p < len(beginnings):
     duration = endings[p] - beginnings[p]
     outfile.write('file ' + '\'out' + str(p) + '.mp4\'' + '\n')
 #    print('ffmpeg -v quiet -stats -vsync 0 -ss ' + str(beginnings[p]) + ' -i ' + video_path + ' -t ' + str(duration) + ' -c copy out' + str(p) + '.mp4')
-    os.system('ffmpeg -v quiet -stats -vsync 0 -ss ' + str(beginnings[p]) + ' -i ' + video_path + ' -t ' + str(duration) + ' -c copy out' + str(p) + '.mp4')
+    os.system('ffmpeg -v quiet -vsync 0 -ss ' + str(beginnings[p]) + ' -i ' + video_path + ' -t ' + str(duration) + ' -c copy out' + str(p) + '.mp4')
     p += 1
 
-print('Creating final video')
-os.system('ffmpeg -v quiet -stats -y -vsync 0 -safe 0 -f concat -i list.txt -c copy "' + video_path.rsplit('.', 1)[0] + '-Compilation' + str(frame_duration) + '-' + str(frame_extension) + '.mp4"')
+print('INFO: Creating final video')
+os.system('ffmpeg -v quiet -y -vsync 0 -safe 0 -f concat -i list.txt -c copy "' + video_path.rsplit('.', 1)[0] + '-Compilation' + str(frame_duration) + '-' + str(frame_extension) + '.mp4"')
 
 popdir() # Return to temporary directory parent
 if (not keep): # Delete the temporary directory if argv[4] = false
-  print('Deleting temporary files')
+  print('INFO: Deleting temporary files')
   shutil.rmtree(tmpdir, ignore_errors=True)
 
 popdir() # Return to initial directory
