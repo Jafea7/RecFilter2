@@ -69,10 +69,25 @@ Example:
       "search": "EXPOSED_BELLY",
       "begin": 330,
       "finish": 0
+    },
+    {
+      "name": "modelname2",
+      "site": "camsite3",
+      "interval": 50,
+      "extension": 5,
+      "search": "EXPOSED_FEET",
+      "begin": 0,
+      "finish": 0
     }
   ]
 }
 ```
+The body areas searched for are set in the script and default to:
+`EXPOSED_BREAST, EXPOSED_BUTTOCKS, EXPOSED_ANUS, EXPOSED_GENITALIA, EXPOSED_BELLY`
+
+However, you can modify this by editing the `default` value in the configuration file.
+
+**Model entries:**
 | Parameter | Description |
 |-----------|-------------|
 | name      | Name of the model. |
@@ -82,7 +97,6 @@ Example:
 | search    | Body areas to analyse images for, covered or exposed. (More info below.) |
 | begin     | Number of seconds to skip at the beginning of the video, eg. in the event of a 'highlights' video being shown. |
 | finish    | Number of seconds to skip at the end of the video, eg. in the event of a 'highlights' video being shown. |
-
 
 The valid body areas to detect on are:
 | class name          | Description |
@@ -110,19 +124,4 @@ The following are gender neutral, ie. they will match Male or Female:
 | FACE              | Face; Any gender |
 | EXPOSED_BREAST    | Exposed Breast; Any gender |
 | EXPOSED_GENITALIA | Exposed Genitalia; Any gender |
-
-The body areas searched for are set in the script and default to: 'EXPOSED_BREAST', 'EXPOSED_BUTTOCKS', 'EXPOSED_ANUS', 'EXPOSED_GENITALIA', 'EXPOSED_BELLY'
-
-If you want something else then either:
- - edit the source;
- - create an entry in the config for particular models; or
- - create the following entry in the configuration file.
-
-Example default search entry:
-```
-{
-  "default": "EXPOSED_ANUS,EXPOSED_BELLY,EXPOSED_BREAST,EXPOSED_BUTTOCKS,EXPOSED_GENTALIA,EXPOSED_FEET,FACE",
-```
-
-See the included example configuration file for more info.
 
