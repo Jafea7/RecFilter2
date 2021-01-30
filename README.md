@@ -58,17 +58,17 @@ If you change the name of the script/executable then the configuration has to be
 
 Example:
 ```
-[
-  {
-    "name": "modelname",
-    "site": "camsite",
-    "interval": 45,
-    "extension": 10,
-    "search": "EXPOSED_BELLY",
-    "begin": 330,
-    "finish": 0
-  }
-]
+  "models": [  
+    {
+      "name": "modelname",
+      "site": "camsite",
+      "interval": 45,
+      "extension": 10,
+      "search": "EXPOSED_BELLY",
+      "begin": 330,
+      "finish": 0
+    }
+  ]
 ```
 | Parameter | Description |
 |-----------|-------------|
@@ -121,4 +121,6 @@ Example default search entry:
     "default": "EXPOSED_ANUS,EXPOSED_BELLY,EXPOSED_BREAST,EXPOSED_BUTTOCKS,EXPOSED_GENTALIA,EXPOSED_FEET,FACE"
   },
 ```
+
+See the included example configuration file for more info.
 
