@@ -48,9 +48,9 @@ Look for an entry in the configuration file for model `sexy_legs` on the site `s
 
 ## Config file
 
-The configuration file is optional, without it RecFilter2 will use the default values for its parameters.
-
 **For the configuration file to be detected it has to have the same basename as the script/executable, (eg. `RecFilter2.json` if the script is named `RecFilter2.py`), and reside in the same directory as the script/executable.**
+
+The configuration file is optional, without it RecFilter2 will use the default values for its parameters.
 
 The file is in JSON format and contains optional parameters pertaining to particular models and the default body area search.
 
