@@ -1,47 +1,50 @@
-[
-  {
-    "name": "model1",
-    "site": "camsite1",
-    "interval": 45,
-    "extension": 10,
-    "search": "EXPOSED_BREAST,EXPOSED_GENTALIA,EXPOSED_BUTTOCKS,EXPOSED_BELLY",
-    "begin": 330,
-    "finish": 0
-  },
-  {
-    "name": "model1",
-    "site": "camsite2",
-    "interval": 45,
-    "extension": 10,
-    "search": "EXPOSED_BREAST,EXPOSED_GENTALIA,EXPOSED_BUTTOCKS,EXPOSED_BELLY",
-    "begin": 330,
-    "finish": 0
-  },
-  {
-    "name": "model2",
-    "site": "camsite3",
-    "interval": 90,
-    "extension": 15,
-    "search": "EXPOSED_BREAST,EXPOSED_GENTALIA,EXPOSED_BUTTOCKS,EXPOSED_BELLY",
-    "begin": 0,
-    "finish": 0
-  },
-  {
-    "name": "model4",
-    "site": "camsite1",
-    "interval": 45,
-    "extension": 15,
-    "search": "EXPOSED_BUTTOCKS",
-    "begin": 420,
-    "finish": 420
-  },
-  {
-    "name": "model5",
-    "site": "camsite4",
-    "interval": 90,
-    "extension": 0,
-    "search": "EXPOSED_BREAST,EXPOSED_GENTALIA,EXPOSED_BUTTOCKS",
-    "begin": 0,
-    "finish": 0
-  }
-]
+{
+  "default": "EXPOSED_ANUS,EXPOSED_BELLY,EXPOSED_BREAST,EXPOSED_BUTTOCKS,EXPOSED_FEET,EXPOSED_GENTALIA,FACE",
+  "models": [
+    {
+      "name": "model1",
+      "site": "camsite1",
+      "interval": 45,
+      "extension": 10,
+      "search": "EXPOSED_ANUS,EXPOSED_BUTTOCKS",
+      "begin": 330,
+      "finish": 0
+    },
+    {
+      "name": "model1",
+      "site": "camsite2",
+      "interval": 45,
+      "extension": 10,
+      "search": "EXPOSED_ANUS,EXPOSED_BUTTOCKS",
+      "begin": 330,
+      "finish": 0
+    },
+    {
+      "name": "model2",
+      "site": "camsite3",
+      "interval": 90,
+      "extension": 15,
+      "search": "EXPOSED_BELLY,EXPOSED_GENTALIA",
+      "begin": 0,
+      "finish": 0
+    },
+    {
+      "name": "model4",
+      "site": "camsite1",
+      "interval": 45,
+      "extension": 15,
+      "search": "EXPOSED_BUTTOCKS,EXPOSED_GENTALIA",
+      "begin": 420,
+      "finish": 420
+    },
+    {
+      "name": "model5",
+      "site": "camsite4",
+      "interval": 90,
+      "extension": 0,
+      "search": "EXPOSED_FEET,EXPOSED_BELLY,FACE",
+      "begin": 0,
+      "finish": 0
+    }
+  ]
+}

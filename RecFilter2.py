@@ -20,6 +20,7 @@ def popdir():
   global pushstack
   os.chdir(pushstack.pop())
 
+print('\n--- RecFilter2 ---')
 parser = argparse.ArgumentParser(prog='RecFilter', description='RecFilter: Remove SFW sections of videos')
 parser.add_argument('file', type=str, help='Video file to process')
 parser.add_argument('-i', '--interval', type=int, default=60, help='Interval between image samples (default: 60)')
@@ -46,30 +47,40 @@ model = args.model
 site = args.site
 keep = args.keep
 
+config_path = os.path.abspath(sys.argv[0]).rsplit('.', 1)[0] + '.json'
+try:
+  with open(config_path) as f:
+    data = json.load(f)
+    config = True
+except:
+  print('No config file \'%s\' found.' % config_path)
+  config = False
+
 # Default checkinglist is gender neutral, if a particular gender is required it can be entered into the config file per model
-# EXPOSED_BREAST_F COVERED_BREAST_F EXPOSED_GENITALIA_F FACE_F EXPOSED_BREAST_M COVERED_BREAST_M EXPOSED_GENITALIA_M FACE_M
+# Other terms can also be set in the config, see https://github.com/Jafea7/RecFilter2 for valid terms
 checkinglist = ['EXPOSED_BREAST', 'EXPOSED_BUTTOCKS', 'EXPOSED_ANUS', 'EXPOSED_GENITALIA', 'EXPOSED_BELLY']
 
-if ((model is not None) and (site is not None)):
-  config_path = os.path.abspath(sys.argv[0]).rsplit('.', 1)[0] + '.json'
-  found = False
-  try:
-    with open(config_path) as f:
-      data = json.load(f)
-      for cammodel in data:
-        if (cammodel['name'].lower() == model):
-          if (cammodel['site'].lower() == site):
-            frame_duration = cammodel['interval']
-            frame_extension = cammodel['extension']
-            checkinglist = cammodel['search'].split(',')
-            skip_begin = cammodel['begin']
-            skip_finish = cammodel['finish']
-            found = True
-            break
-      if not found:
-        print(model + ' at ' + site + ' not found, using defaults.')
-  except:
-    print('No config file \'%s\' found, using defaults.' % config_path)
+if config:
+  if 'default' in data:
+    if str(data['default']) != "":
+      checkinglist = data['default'].split(',')
+  if ((model is not None) and (site is not None)):
+    found = False
+    for cammodel in data['models']:
+      if (cammodel['name'].lower() == model):
+        if (cammodel['site'].lower() == site):
+          frame_duration = cammodel['interval']
+          frame_extension = cammodel['extension']
+          checkinglist = cammodel['search'].split(',')
+          skip_begin = cammodel['begin']
+          skip_finish = cammodel['finish']
+          found = True
+          break
+    if not found:
+      print(model + ' at ' + site + ' not found, using defaults.')
+
+print('Settings: -i ' + str(frame_duration) + ' -e ' + str(frame_extension) + ' -b ' + str(skip_begin) + ' -f ' + str(skip_finish))
+print('          ' + str(checkinglist))
 
 imagelist = []
 lines = []
@@ -136,7 +147,7 @@ with open('output.txt',"r") as infile, open('list.txt',"w") as outfile:
   
   while i < len(imagelist):
     if i == 0: #if first element of imagelist
-      if len(imagelist) == 1 or imagelist[i+1] - imagelist[i] > frame_duration: #if no segment within frame_durations
+      if len(imagelist) == 1 or imagelist[i + 1] - imagelist[i] > frame_duration: #if no segment within frame_durations
         beginnings.append(imagelist[i]) 
         endings.append(imagelist[i] + frame_duration) #become your own frame_durations segment
       else: 
@@ -145,8 +156,8 @@ with open('output.txt',"r") as infile, open('list.txt',"w") as outfile:
           beginnings.append(b)
           endings.append(e)
 
-    elif i == len(imagelist)-1: #if last element if imagelist
-      if imagelist[i] - imagelist[i-1] > frame_duration: #if no segment within frame_durations
+    elif i == len(imagelist) - 1: #if last element if imagelist
+      if imagelist[i] - imagelist[i - 1] > frame_duration: #if no segment within frame_durations
         beginnings.append(imagelist[i] - frame_extension) 
         endings.append(imagelist[i] + frame_duration) #become your own frame_durations segment
       else:
@@ -155,17 +166,17 @@ with open('output.txt',"r") as infile, open('list.txt',"w") as outfile:
           beginnings.append(b)
           endings.append(e)
 
-    elif imagelist[i+1] - imagelist[i] > frame_duration and imagelist[i] - imagelist[i-1] > frame_duration: #lone wolf segment example: if model flashes breasts on contactsheet frame
+    elif imagelist[i + 1] - imagelist[i] > frame_duration and imagelist[i] - imagelist[i - 1] > frame_duration: #lone wolf segment example: if model flashes breasts on contactsheet frame
       beginnings.append(imagelist[i] - frame_extension) 
       endings.append(imagelist[i] + frame_duration) #become your own frame_durations segment
 
-    elif imagelist[i+1] - imagelist[i] > frame_duration: #multi-minute ending segment
+    elif imagelist[i + 1] - imagelist[i] > frame_duration: #multi-minute ending segment
       e = imagelist[i] + frame_duration
       if e > b:
         beginnings.append(b)
         endings.append(e)
 
-    elif imagelist[i] - imagelist[i-1] > frame_duration: #multi-minute beginning segment
+    elif imagelist[i] - imagelist[i - 1] > frame_duration: #multi-minute beginning segment
       b = imagelist[i] - frame_extension
       if e > b:
         beginnings.append(b)
@@ -192,3 +203,4 @@ if (not keep): # Delete the temporary directory if argv[4] = false
   shutil.rmtree(tmpdir, ignore_errors=True)
 
 popdir() # Return to initial directory
+print('--- Finished ---')
