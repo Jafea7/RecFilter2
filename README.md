@@ -23,7 +23,8 @@ Download the files to a directory and enter `pip install -r requirements` to ins
 
 RecFilter2.py is capable of being compiled using pyinstaller, `pyinstaller --onefile RecFilter2.py`
 
-You can also use it as part of the post-processing for CTBRec, (not tested but the theory is sound ;) ), eg. `python RecFilter2.py ${absolutePath} -m ${sanitizedModelName} -s ${sanitizedSiteName}`
+You can also use it as part of the post-processing for CTBRec, (not tested but the theory is sound ;) ), eg.
+`python RecFilter2.py ${absolutePath} -m ${sanitizedModelName} -s ${sanitizedSiteName}`
 
 ---
 
