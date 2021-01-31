@@ -1,6 +1,13 @@
 <#
+  PowerShell script to call RecFilter2 on a whole directory.
+
   ./RF-Batch.ps1 <dir> [-interval <int>] [-extension <int>] [-begin <int>] [-finish <int>] [-model <model> -site <site>] [-keep]
-#>
+
+  Example:
+
+  ./RF-Batch.ps1 "M:\My captures" -interval 45
+  
+  #>
 
 param (
   [Parameter(Mandatory=$true)][string]$dir,
