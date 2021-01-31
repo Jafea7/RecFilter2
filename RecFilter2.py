@@ -44,8 +44,8 @@ frame_duration = args.interval
 frame_extension = args.extension
 skip_begin = args.beginning
 skip_finish = args.finish
-model = args.model
-site = args.site
+model = args.model.lower()
+site = args.site.lower()
 keep = args.keep
 verbose = args.verbose
 
