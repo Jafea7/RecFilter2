@@ -4,22 +4,24 @@ RecFilter2 - A SFW filter for videos based on [NudeNet](https://github.com/notAI
 
 ---
 
-## NOTE: Use Python 3.7.9, this is what it was tested and developed on.
-
----
-
 ## Explanation:
 
 RecFilter2 does the following operations:
  - Generate sample images at pre-determined intervals for the whole video;
- - Submit the sample images to the NudeNet classification API;
+ - Submit those sample to the NudeNet classification API;
  - Parse the results for each image based on the wanted search parameters;
  - Generate ffmpeg commands to extract the NSFW sections;
  - Combine these sections in to a final video.
 
 ---
 
+## Installation:
 
+Download the files to a directory and enter `pip install -r requirements` to install the Python modules.
+
+**NOTE:** It has been tested and developed using Python 3.7.9 - we know it works using this version.
+
+---
 
 ## Usage:
 
