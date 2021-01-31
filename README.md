@@ -25,7 +25,7 @@ RecFilter2.py is capable of being compiled using pyinstaller, `pyinstaller --one
 
 You can also use it as part of the post-processing for CTBRec, (not tested but the theory is sound ;) ), eg.
 
-`python RecFilter2.py ${absolutePath} -m ${sanitizedModelName} -s ${sanitizedSiteName}`
+`python RecFilter2.py ${absolutePath} -m ${modelSanitizedName} -s ${siteSanitizedName}`
 
 ---
 
