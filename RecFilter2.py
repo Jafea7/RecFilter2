@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import argparse
+import atexit
 import json
 import os
 import re
@@ -19,6 +20,14 @@ def pushdir(dirname):
 def popdir():
   global pushstack
   os.chdir(pushstack.pop())
+
+def exit_handler():
+  # Cleanup stuff - not working yet
+  if tmpdir is not None:
+    # Need to check where we are before doing this
+    shutil.rmtree(tmpdir, ignore_errors=True)
+
+# atexit.register(exit_handler)
 
 print('\n--- RecFilter2 ---')
 parser = argparse.ArgumentParser(prog='RecFilter', description='RecFilter: Remove SFW sections of videos')
