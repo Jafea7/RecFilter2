@@ -4,6 +4,10 @@ RecFilter2 - A SFW filter for videos based on [NudeNet](https://github.com/notAI
 
 ---
 
+## NOTE: Use Python 3.7.9, this is what it was tested and developed on.
+
+---
+
 ## Explanation:
 
 RecFilter2 does the following operations:
