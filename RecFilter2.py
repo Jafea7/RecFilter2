@@ -57,8 +57,12 @@ skip_begin = args.beginning
 skip_finish = args.finish
 if args.model is not None:
   model = args.model.lower()
+else:
+  model = None
 if args.site is not None:
   site = args.site.lower()
+else:
+  site = None
 keep = args.keep
 verbose = args.verbose
 
