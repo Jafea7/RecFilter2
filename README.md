@@ -37,8 +37,7 @@ Python RecFilter2.py file \
        [-e <VALUE>] \
        [-b <VALUE>] \
        [-f <VALUE>] \
-       [-m <NAME>] \
-       [-s <NAME>] \
+       [-m <NAME> -s <NAME>] \
        [-k]
 ```
 | Parameter | Description |
