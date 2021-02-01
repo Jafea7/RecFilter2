@@ -23,11 +23,13 @@ def popdir():
 
 def exit_handler():
   # Cleanup stuff - not working yet
-  if tmpdir is not None:
-    # Need to check where we are before doing this
-    shutil.rmtree(tmpdir, ignore_errors=True)
+  if video_path is not None: # Haven't got this then only read config
+    if tmpdir is not None:   # If we got this then we're in the video or tmpdir
+      if Path(os.getcwd()).stem == tmpdir: # If in the tmpdir then retrace a dir
+        popdir()
+      shutil.rmtree(tmpdir, ignore_errors = True) # Nuke the tmpdir
 
-# atexit.register(exit_handler)
+#atexit.register(exit_handler)
 
 print('\n--- RecFilter2 ---')
 parser = argparse.ArgumentParser(prog='RecFilter', description='RecFilter: Remove SFW sections of videos')
@@ -53,8 +55,8 @@ frame_duration = args.interval
 frame_extension = args.extension
 skip_begin = args.beginning
 skip_finish = args.finish
-model = args.model.lower()
-site = args.site.lower()
+model = args.model
+site = args.site
 keep = args.keep
 verbose = args.verbose
 
