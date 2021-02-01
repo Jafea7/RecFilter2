@@ -105,9 +105,10 @@ Example:
 }
 ```
 The body areas searched for are set in the script to:
+
 `EXPOSED_BREAST, EXPOSED_BUTTOCKS, EXPOSED_ANUS, EXPOSED_GENITALIA, EXPOSED_BELLY`
 
-However, you can modify this by editing the `default` value in the configuration file.
+However, you can modify this by editing the `default` value in the configuration file. See below for possible values.
 
 **Model entries:**
 | Parameter | Description |
