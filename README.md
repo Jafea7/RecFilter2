@@ -8,7 +8,7 @@ RecFilter2 - A SFW filter for videos based on [NudeNet](https://github.com/notAI
 
 RecFilter2 does the following operations:
  - Generate sample images at pre-determined intervals for the whole video;
- - Submit those sample to the NudeNet classification API;
+ - Submit the images to the NudeNet classification API;
  - Parse the results for each image based on the wanted search parameters;
  - Generate ffmpeg commands to extract the NSFW sections;
  - Combine these sections in to a final video.
