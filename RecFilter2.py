@@ -5,11 +5,16 @@ import os
 import re
 import shutil
 import signal
+import subprocess
 import sys
 from pathlib import Path
 from nudenet import NudeDetector
 
 detector = NudeDetector()
+
+#MIN_PYTHON = (3, 7, 9)
+#if sys.version_info < MIN_PYTHON:
+#    sys.exit("\nPython %s.%s.%s or later is required.\n" % MIN_PYTHON)
 
 pushstack = []
 def pushdir(dirname):
@@ -26,7 +31,8 @@ def exit_handler(signum, frame):
     if tmpdir is not None:   # If we got this then we're in the video or tmpdir
       if Path(os.getcwd()).stem == tmpdir: # If in the tmpdir then retrace a dir
         popdir()
-      shutil.rmtree(tmpdir, ignore_errors = True) # Nuke the tmpdir
+      # Launch tmpdir deletion as separate process, RecFilter locks a file which prevents deletion under certain circumstances
+      subprocess.Popen(["python","-c","import shutil; import time; time.sleep(1); shutil.rmtree(\"" + tmpdir + "\", ignore_errors=True)"])
   sys.exit(0)
 
 signal.signal(signal.SIGINT, exit_handler) # Handle Ctrl-C
