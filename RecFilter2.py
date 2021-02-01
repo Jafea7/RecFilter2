@@ -1,10 +1,10 @@
 #!/usr/bin/python
 import argparse
-import atexit
 import json
 import os
 import re
 import shutil
+import signal
 import sys
 from pathlib import Path
 from nudenet import NudeDetector
@@ -21,15 +21,15 @@ def popdir():
   global pushstack
   os.chdir(pushstack.pop())
 
-def exit_handler():
-  # Cleanup stuff - not working yet
-  if video_path is not None: # Haven't got this then only read config
+def exit_handler(signum, frame):
+  if video_path is not None: # Haven't got this then have only read config
     if tmpdir is not None:   # If we got this then we're in the video or tmpdir
       if Path(os.getcwd()).stem == tmpdir: # If in the tmpdir then retrace a dir
         popdir()
       shutil.rmtree(tmpdir, ignore_errors = True) # Nuke the tmpdir
+  sys.exit(0)
 
-#atexit.register(exit_handler)
+signal.signal(signal.SIGINT, exit_handler) # Handle Ctrl-C
 
 print('\n--- RecFilter2 ---')
 parser = argparse.ArgumentParser(prog='RecFilter', description='RecFilter: Remove SFW sections of videos')
@@ -55,8 +55,10 @@ frame_duration = args.interval
 frame_extension = args.extension
 skip_begin = args.beginning
 skip_finish = args.finish
-model = args.model
-site = args.site
+if args.model is not None:
+  model = args.model.lower()
+if args.site is not None:
+  site = args.site.lower()
 keep = args.keep
 verbose = args.verbose
 
