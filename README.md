@@ -27,6 +27,18 @@ You can also use it as part of the post-processing for CTBRec, (not tested but t
 
 `python RecFilter2.py ${absolutePath} -m ${modelSanitizedName} -s ${siteSanitizedName}`
 
+If you compile it using pyinstaller, an example (tested working):
+
+```
+    {
+      "type": "ctbrec.recorder.postprocessing.Script",
+      "config": {
+        "script.params": "${absolutePath} -m porn -s general",
+        "script.executable": "X:\\ctbrec3\\RecFilter2.exe "
+      }
+    }
+```
+
 ---
 
 ## Usage:
