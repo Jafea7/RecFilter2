@@ -169,7 +169,6 @@ with open('output.txt',"r") as infile, open('list.txt',"w") as outfile:
     x = int(match.group())
     imagelist.append(x)
     lines.append(line)
-#    if verbose: print(imagelist)
   
   while i < len(imagelist):
     if i == 0: #if first element of imagelist
@@ -224,7 +223,7 @@ if verbose: print('ffmpeg -v quiet -y -vsync 0 -safe 0 -f concat -i list.txt -c 
 os.system('ffmpeg -v quiet -y -vsync 0 -safe 0 -f concat -i list.txt -c copy "' + video_path.rsplit('.', 1)[0] + '-Compilation' + str(frame_duration) + '-' + str(frame_extension) + '.mp4"')
 
 popdir() # Return to temporary directory parent
-if (not keep): # Delete the temporary directory if argv[4] = false
+if (not keep): # Delete the temporary directory if no -keep
   print('INFO: Deleting temporary files')
   shutil.rmtree(tmpdir, ignore_errors=True)
 
