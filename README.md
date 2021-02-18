@@ -2,6 +2,8 @@
 
 RecFilter2 - A SFW filter for videos based on [NudeNet](https://github.com/notAI-tech/NudeNet), it **removes** SFW sections of video.
 
+Implementation by @Dema with extra stuff by @jafea7
+
 ---
 
 ## Explanation:
