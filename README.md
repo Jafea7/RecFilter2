@@ -20,6 +20,7 @@ RecFilter2 does the following operations:
 ## Requirements:
 
 Python 3.7.9 - the only version it has been tested to work with.
+
 ffmpeg/ffprobe - Download compiled binaries and add them to the system path.
 
 ---
