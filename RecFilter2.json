@@ -1,5 +1,5 @@
 {
-  "default": "EXPOSED_ANUS,EXPOSED_BELLY,EXPOSED_BREAST,EXPOSED_BUTTOCKS,EXPOSED_FEET,EXPOSED_GENTALIA,FACE",
+  "default": "EXPOSED_ANUS,EXPOSED_BELLY,EXPOSED_BREAST,EXPOSED_BUTTOCKS,EXPOSED_FEET,EXPOSED_GENITALIA,FACE",
   "models": [
     {
       "name": "model1",
@@ -24,7 +24,7 @@
       "site": "camsite3",
       "interval": 90,
       "extension": 15,
-      "search": "EXPOSED_BELLY,EXPOSED_GENTALIA",
+      "search": "EXPOSED_BELLY,EXPOSED_GENITALIA",
       "begin": 0,
       "finish": 0
     },
@@ -33,7 +33,7 @@
       "site": "camsite1",
       "interval": 45,
       "extension": 15,
-      "search": "EXPOSED_BUTTOCKS,EXPOSED_GENTALIA",
+      "search": "EXPOSED_BUTTOCKS,EXPOSED_GENITALIA",
       "begin": 420,
       "finish": 420
     },
