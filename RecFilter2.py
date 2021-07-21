@@ -107,6 +107,9 @@ if config:
 print('INFO: -i ' + str(frame_duration) + ' -e ' + str(frame_extension) + ' -b ' + str(skip_begin) + ' -f ' + str(skip_finish))
 print('      ' + str(checkinglist))
 
+if checkinglist[0] == 'NONE':
+  exit()
+
 imagelist = []
 lines = []
 beginnings = []
