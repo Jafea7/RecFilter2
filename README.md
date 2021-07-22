@@ -170,3 +170,7 @@ The following are gender neutral, ie. they will match Male or Female:
 | EXPOSED_BREAST    | Exposed Breast; Any gender |
 | EXPOSED_GENITALIA | Exposed Genitalia; Any gender |
 
+A special entry is available:
+| class name | Description |
+|------------|-------------|
+| NONE       | Having this will cause RecFilter2 to exit, ie. no analysis will be performed thereby keeping the original file. |
