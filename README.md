@@ -82,7 +82,7 @@ Uses the default values: -i 60 -e 0 -b 0 -f 0
 
 Sample image interval is 45 seconds, default values for everything else.
 
-`python RecFilter2.py d:\captures\cb_freddo_20210202-181818.mp4 -b 420 -e 300`
+`python RecFilter2.py d:\captures\cb_freddo_20210202-181818.mp4 -b 420 -f 300`
 
 Skip 420 seconds of video at the start and 300 seconds at the end, default values for everything else.
 
