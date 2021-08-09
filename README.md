@@ -104,6 +104,7 @@ Example:
 ```
 {
   "default": "EXPOSED_ANUS,EXPOSED_BELLY,EXPOSED_BREAST,EXPOSED_BUTTOCKS,EXPOSED_GENTALIA,EXPOSED_FEET,FACE",
+  "videoext": "mkv",
   "models": [  
     {
       "name": "modelname",
@@ -122,26 +123,25 @@ Example:
       "search": "EXPOSED_FEET",
       "begin": 0,
       "finish": 0
+    },
+    {
+      "name": "mfc",
+      "site": "",
+      "interval": 50,
+      "extension": 5,
+      "search": "EXPOSED_BREAST,EXPOSED_BUTTOCKS",
+      "begin": 0,
+      "finish": 0
     }
   ]
 }
 ```
+**default:**
 The body areas searched for are set in the script to:
 
 `EXPOSED_BREAST, EXPOSED_BUTTOCKS, EXPOSED_ANUS, EXPOSED_GENITALIA, EXPOSED_BELLY`
 
 However, you can modify this by editing the `default` value in the configuration file. See below for possible values.
-
-**Model entries:**
-| Parameter | Description |
-|-----------|-------------|
-| name      | Name of the model. |
-| site      | Name of the cam site. |
-| interval  | Interval in seconds between each generated sample image used for analysis. |
-| extension | Number of seconds to include prior to each selected video section. |
-| search    | Body areas to analyse images for, covered or exposed. (More info below.) |
-| begin     | Number of seconds to skip at the beginning of the video, eg. in the event of a 'highlights' video being shown. |
-| finish    | Number of seconds to skip at the end of the video, eg. in the event of a 'highlights' video being shown. |
 
 The valid body areas to detect on are:
 | class name          | Description |
@@ -174,3 +174,20 @@ A special entry is available:
 | class name | Description |
 |------------|-------------|
 | NONE       | Having this will cause RecFilter2 to exit, ie. no analysis will be performed thereby keeping the original file. |
+
+**videoext:**
+The `videoext` parameter specifies the output video container, the default is `mp4` if not specified, (maximum compatibility with media players and video editors).
+You can set it to any valid container extension, eg. `mkv`, `ts`, etc
+
+**NOTE:** Some stream types are not compatible with some container formats.
+
+**Model entries:**
+| Parameter | Description |
+|-----------|-------------|
+| name      | Name of the model, group, or any other identifier. |
+| site      | Name of the cam site, it can be left empty. |
+| interval  | Interval in seconds between each generated sample image used for analysis. |
+| extension | Number of seconds to include prior to each selected video section. |
+| search    | Body areas to analyse images for, covered or exposed. (More info below.) |
+| begin     | Number of seconds to skip at the beginning of the video, eg. in the event of a 'highlights' video being shown. |
+| finish    | Number of seconds to skip at the end of the video, eg. in the event of a 'highlights' video being shown. |
