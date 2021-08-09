@@ -68,7 +68,7 @@ Python RecFilter2.py file \
 | -e        | Number of seconds to include prior to each selected video section, (Default is 0). |
 | -b        | Number of seconds to skip at the beginning of the video, eg. in the event of a 'highlights' video being shown, (Default is 0). |
 | -f        | Number of seconds to skip at the end of the video, eg. in the event of a 'highlights' video being shown, (Default is 0). |
-| -m        | Model name to match in the config file, site (-s) parameter must also be supplied, (Default is none). |
+| -m        | Model name to match in the config file, site (-s) parameter is optional, (Default is none). |
 | -s        | Site name to match in the config file, (Default is none). |
 | -k        | Keep the temporary work directory and its contents, (Default is false). |
 
@@ -90,7 +90,9 @@ Skip 420 seconds of video at the start and 300 seconds at the end, default value
 
 Look for an entry in the configuration file for model `sexy_legs` on the site `supacams`, the values from the configuration file will override any given on the command line.
 
+`python RecFilter2.py d:\captures\cb_freddo_20210202-181818.mp4 -m mfc`
 
+Look for an entry in the configuration file where `name` matches `mfc`, the values from the configuration file will override any given on the command line.
 
 ## Config file
 
