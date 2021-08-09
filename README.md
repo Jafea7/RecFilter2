@@ -69,7 +69,7 @@ Python RecFilter2.py file \
 | -b        | Number of seconds to skip at the beginning of the video, eg. in the event of a 'highlights' video being shown, (Default is 0). |
 | -f        | Number of seconds to skip at the end of the video, eg. in the event of a 'highlights' video being shown, (Default is 0). |
 | -m        | Model name to match in the config file, site (-s) parameter is optional, (Default is none). |
-| -s        | Site name to match in the config file, __can not be supplied on it's own__, (Default is none). |
+| -s        | Site name to match in the config file, _can not be supplied on it's own_, (Default is none). |
 | -k        | Keep the temporary work directory and its contents, (Default is false). |
 
 Examples:
