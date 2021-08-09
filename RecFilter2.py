@@ -50,11 +50,9 @@ parser.add_argument('-k', '--keep', action='store_true', help='Keep temporary wo
 parser.add_argument('-v', '--verbose', action='store_true', help='Output working information (default: False)')
 
 args = parser.parse_args()
-if ((((args.model is not None) and 
-    (args.site is None))) or
-    ((args.site is not None) and
-    (args.model is None))):
-  parser.error('The -model argument requires a -site argument')
+if ((args.site is not None) and
+    (args.model is None)):
+  parser.error('The --site argument requires a --model argument')
 
 video_name = args.file
 frame_duration = args.interval
@@ -84,16 +82,23 @@ except:
 # Default checkinglist is gender neutral, if a particular gender is required it can be entered into the config file per model
 # Other terms can also be set in the config, see https://github.com/Jafea7/RecFilter2 for valid terms
 checkinglist = ['EXPOSED_BREAST', 'EXPOSED_BUTTOCKS', 'EXPOSED_ANUS', 'EXPOSED_GENITALIA', 'EXPOSED_BELLY']
+fileext = 'mp4'
 
 if config:
   if 'default' in data:
     if str(data['default']) != "":
       checkinglist = data['default'].split(',')
-  if ((model is not None) and (site is not None)):
+  if 'videoext' in data:
+    if str(data['videoext']) != "":
+      fileext = data['videoext']
+    else:
+      fileext = 'mp4'
+  if (model is not None):
     found = False
     for cammodel in data['models']:
       if (cammodel['name'].lower() == model):
-        if (cammodel['site'].lower() == site):
+        if (((site is not None) and (cammodel['site'].lower() == site)) or
+          ((site is None) and (cammodel['site'].lower() == ''))):
           frame_duration = cammodel['interval']
           frame_extension = cammodel['extension']
           checkinglist = cammodel['search'].split(',')
@@ -102,10 +107,11 @@ if config:
           found = True
           break
     if not found:
-      print('INFO: \'' + model + '\' at \'' + site + '\' not found, using defaults.')
+      print('INFO: \'' + model + '\' not found, using defaults.')
 
 print('INFO: -i ' + str(frame_duration) + ' -e ' + str(frame_extension) + ' -b ' + str(skip_begin) + ' -f ' + str(skip_finish))
 print('      ' + str(checkinglist))
+print('      Model: \'' + str(model) + '\' Site: \'' + str(site) + '\'')
 
 if checkinglist[0] == 'NONE':
   exit()
@@ -138,14 +144,14 @@ if verbose: print('Duration: ' + str(duration))
 
 print('INFO: Creating sample images')
 for interval in range(skip_begin, duration, frame_duration):
-  os.system('ffmpeg -v quiet -y -skip_frame nokey -ss ' + str(interval) + ' -i "' + video_path + '" -vf select="eq(pict_type\\,I),scale=800:-1" -an -q:v 3 -vframes 1 image-' + str(interval).zfill(7) + '.bmp')
+  os.system('ffmpeg -v quiet -y -skip_frame nokey -ss ' + str(interval) + ' -i "' + video_path + '" -vf select="eq(pict_type\\,I),scale=800:-1" -an -q:v 3 -vframes 1 image-' + str(interval).zfill(7) + '.png')
 if skip_finish < 1:
-  os.system('ffmpeg -v quiet -y -skip_frame nokey -ss ' + str(duration - 1) + ' -i "' + video_path + '" -vf select="eq(pict_type\\,I),scale=800:-1" -an -q:v 3 -vframes 1 image-' + str(duration - 1).zfill(7) + '.bmp')
+  os.system('ffmpeg -v quiet -y -skip_frame nokey -ss ' + str(duration - 1) + ' -i "' + video_path + '" -vf select="eq(pict_type\\,I),scale=800:-1" -an -q:v 3 -vframes 1 image-' + str(duration - 1).zfill(7) + '.png')
 
 print('INFO: Analysing images')
 with open('API-Results.txt',"w") as outfile:
   for filename in os.listdir(os.getcwd()):
-    if filename.endswith(".bmp"):
+    if filename.endswith(".png"):
       output  = detector.detect(filename)
       y = 0
       stringoutput = ''
@@ -217,13 +223,13 @@ with open('output.txt',"r") as infile, open('list.txt',"w") as outfile:
   while p < len(beginnings):
     duration = endings[p] - beginnings[p]
     outfile.write('file ' + '\'out' + str(p) + '.mp4\'' + '\n')
-    if verbose: print('ffmpeg -v quiet -vsync 0 -ss ' + str(beginnings[p]) + ' -i "' + video_path + '" -t ' + str(duration) + ' -c copy out' + str(p) + '.mp4')
-    os.system('ffmpeg -v quiet -vsync 0 -ss ' + str(beginnings[p]) + ' -i "' + video_path + '" -t ' + str(duration) + ' -c copy out' + str(p) + '.mp4')
+    if verbose: print('ffmpeg -v quiet -vsync 0 -ss ' + str(beginnings[p]) + ' -i "' + video_path + '" -t ' + str(duration) + ' -c copy out' + str(p) + '.' + str(fileext))
+    os.system('ffmpeg -v quiet -vsync 0 -ss ' + str(beginnings[p]) + ' -i "' + video_path + '" -t ' + str(duration) + ' -c copy out' + str(p) + '.' + str(fileext))
     p += 1
 
 print('INFO: Creating final video')
-if verbose: print('ffmpeg -v quiet -y -vsync 0 -safe 0 -f concat -i list.txt -c copy "' + video_path.rsplit('.', 1)[0] + '-Compilation' + str(frame_duration) + '-' + str(frame_extension) + '.mp4"')
-os.system('ffmpeg -v quiet -y -vsync 0 -safe 0 -f concat -i list.txt -c copy "' + video_path.rsplit('.', 1)[0] + '-Compilation' + str(frame_duration) + '-' + str(frame_extension) + '.mp4"')
+if verbose: print('ffmpeg -v quiet -y -vsync 0 -safe 0 -f concat -i list.txt -c copy "' + video_path.rsplit('.', 1)[0] + '-Compilation' + str(frame_duration) + '-' + str(frame_extension) + '.' + str(fileext) + '"')
+os.system('ffmpeg -v quiet -y -vsync 0 -safe 0 -f concat -i list.txt -c copy "' + video_path.rsplit('.', 1)[0] + '-Compilation' + str(frame_duration) + '-' + str(frame_extension) + '.' + str(fileext) + '"')
 
 popdir() # Return to temporary directory parent
 if (not keep): # Delete the temporary directory if no -keep
