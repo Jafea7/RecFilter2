@@ -29,8 +29,6 @@ ffmpeg/ffprobe - Download compiled binaries and add them to the system path.
 
 Download the files to a directory and enter `pip install -r requirements` to install the Python modules.
 
-**NOTE:** It has been tested and developed using Python 3.7.9 - we know it works using this version.
-
 RecFilter2.py is capable of being compiled using pyinstaller, `pyinstaller --onefile RecFilter2.py`
 
 You can also use it as part of the post-processing for CTBRec, (not tested but the theory is sound ;) ), eg.
