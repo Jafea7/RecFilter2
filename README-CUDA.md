@@ -88,9 +88,12 @@ Linux:
 mv detector_v2_default_checkpoint.onnx detector_v2_default_checkpoint.onnx.backup
 ```
 
-Convert the checkpoint file:
+Convert the checkpoint file (Windows):
 ```
 python -m tf2onnx.convert --saved-model <path to extracted archive>\detector_v2_default_checkpoint_tf --opset 11 --output <path to original checkpoint file>\detector_v2_default_checkpoint.onnx
 ```
 
-This should only take a couple of minutes, (depending on your hardware).
+This should only take a couple of minutes, (depending on your hardware), and will probably generate a few warnings but it will still succeed.
+
+
+At this point the NudeNet API should use CUDA to perform image analysis.
