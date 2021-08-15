@@ -16,7 +16,7 @@ A NVIDIA GPU with CUDA.
 
 ## Installation:
 
-**RecFilter3 and NudeNet:**
+**RecFilter2 and NudeNet:**
 
 Clone/download the repo, extract to a directory, then open a console/terminal within that directory.
 
