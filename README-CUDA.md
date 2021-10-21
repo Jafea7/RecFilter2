@@ -61,7 +61,7 @@ Open a console/terminal:
 We need to replace `onnxruntime` with `onnxruntime-gpu` to utilise CUDA:
 ```
 python -m pip uninstall -y onnxruntime
-python -m pip install onnxruntime-gpu
+python -m pip install onnxruntime-gpu==1.8.1
 ```
 We need to install the TensorFlow modules to convert the model:
 ```
