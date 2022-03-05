@@ -27,7 +27,7 @@ ffmpeg/ffprobe - Download compiled binaries and add them to the system path.
 
 ## Installation:
 
-Download the files to a directory and enter `pip install -r requirements` to install the Python modules.
+Download the files to a directory and enter `pip install -r requirements.txt` to install the Python modules.
 
 RecFilter2.py is capable of being compiled using pyinstaller, `pyinstaller --onefile RecFilter2.py`
 
