@@ -1,3 +1,5 @@
+Repo archived as of 2022-12-25
+
 ---
 
 RecFilter2 - A SFW filter for videos based on [NudeNet](https://github.com/notAI-tech/NudeNet), it **removes** SFW sections of video.
